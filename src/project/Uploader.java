@@ -1,8 +1,14 @@
 package project;
 
 import com.dropbox.core.v2.DbxClientV2;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Uploader extends Thread{
     private DbxClientV2 client;
@@ -19,12 +25,18 @@ public class Uploader extends Thread{
             //TODO: convert BufferedImage to InputStream
             //  using ByteArrayInputStream and
             //  ByteArrayOutputStream
-            InputStream in = null;
+
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", os);
+            InputStream in = new ByteArrayInputStream(os.toByteArray());
+
             //TODO: change "/picture.png" to current
             //  date, time and png-extension:
             //  20210511_200716.png
-            client.files().uploadBuilder("/picture.png")
-                    .uploadAndFinish(in);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            Date now = new Date();
+            client.files().uploadBuilder(formatter.format(now)).uploadAndFinish(in);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
