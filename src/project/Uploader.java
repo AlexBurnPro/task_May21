@@ -1,7 +1,6 @@
 package project;
 
 import com.dropbox.core.v2.DbxClientV2;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
