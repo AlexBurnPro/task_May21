@@ -12,7 +12,7 @@ public class Main {
 
         //TODO: download Dropbox library and
         //  generate token to access it
-        String ACCESS_TOKEN = "FLurhW8hXCsAAAAAAAAAAQM2gd_uwmeRY3-oCHzuhsyfCT6AoPemkL3tzs69UCxA";
+        String ACCESS_TOKEN = "*****************************************";
 
         DbxRequestConfig config = DbxRequestConfig.newBuilder("dropbox/java-tutorial").build();
         DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);

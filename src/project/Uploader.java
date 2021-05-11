@@ -36,7 +36,7 @@ public class Uploader extends Thread{
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
             Date now = new Date();
-            client.files().uploadBuilder(formatter.format(now)).uploadAndFinish(in);
+            client.files().uploadBuilder("/" + formatter.format(now) +".png").uploadAndFinish(in);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
