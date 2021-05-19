@@ -9,6 +9,10 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * отправка файла скриншота на Dropbox
+ */
+
 public class Uploader extends Thread{
     private DbxClientV2 client;
     private BufferedImage image;
@@ -21,21 +25,28 @@ public class Uploader extends Thread{
     @Override
     public void run() {
         try {
-            //TODO: convert BufferedImage to InputStream
-            //  using ByteArrayInputStream and
-            //  ByteArrayOutputStream
+            /*
+             конвертируем скрин в байтовый поток,
+             который будет отправлен в Dropbox
+             */
 
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             ImageIO.write(image, "png", os);
             InputStream in = new ByteArrayInputStream(os.toByteArray());
 
-            //TODO: change "/picture.png" to current
-            //  date, time and png-extension:
-            //  20210511_200716.png
+            /*
+            форматируем наименование файлов к виду 20210511_200716.png
+             */
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
             Date now = new Date();
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd_HHmmss");
+
+            /*
+            отправляем
+             */
+
             client.files().uploadBuilder("/" + formatter.format(now) +".png").uploadAndFinish(in);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
