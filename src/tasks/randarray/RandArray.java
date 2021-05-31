@@ -34,7 +34,7 @@ class FindNumber{
         findNumberInArray(arr);
     }
 
-    public void findNumberInArray(int[] arr){
+    private void findNumberInArray(int[] arr){
 
         int j = 0;
         boolean isFind = false;
@@ -71,7 +71,6 @@ class UserInput {
     private int size;
     private int num;
 
-    private UserInput userInput;
     private FindNumber find;
     private boolean isContinue;
 
@@ -80,25 +79,16 @@ class UserInput {
         this.num = num;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public int getNum() {
-        return num;
-    }
-
     public void input() {
 
-        UserInput userInput = new UserInput(size, num);
-
         do {
-            find = new FindNumber(userInput.getSize(), userInput.getNum());
+            find = new FindNumber(size, num);
             find.randomArray();
 
             Scanner sc = new Scanner(System.in);
             System.out.print("\nYou`re want to continue? y/n : ");
             String s = sc.next();
+
             if (s.equalsIgnoreCase("y")) {
                 isContinue = true;
                 Scan scan = new Scan();
