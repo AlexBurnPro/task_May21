@@ -6,29 +6,8 @@ import java.util.Scanner;
 
 public class RandArray {
 
-    static FindNumber find;
-    static UserInput input;
-    static boolean isContinue;
-
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        do {
-            input = new UserInput();
-            input.userInput();
-
-            find = new FindNumber(input.getSize(), input.getNum());
-            find.randomArray();
-
-            System.out.print("\nYou`re want to continue? y/n : ");
-            String s = sc.next();
-            if (s.equalsIgnoreCase("y")) {
-                isContinue = true;
-            } else {
-                System.out.println("Bye-bye");
-                return;
-            }
-        } while(isContinue);
     }
 }
 
@@ -73,12 +52,26 @@ class FindNumber{
     }
 }
 
-class UserInput{
+class UserInput {
 
     private int size;
     private int num;
 
-    public int getSize(){
+    private UserInput userInput;
+    private FindNumber find;
+    private boolean isContinue;
+    Scanner sc;
+
+    public UserInput(int size, int num){
+
+        sc = new Scanner(System.in);
+        System.out.print("Input array size: ");
+        size = sc.nextInt();
+        System.out.print("Input number: ");
+        num = sc.nextInt();
+    }
+
+    public int getSize() {
         return size;
     }
 
@@ -86,14 +79,23 @@ class UserInput{
         return num;
     }
 
-    public void userInput(){
+    public void input() {
 
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Input array size: ");
-        size = sc.nextInt();
-        System.out.print("Input number: ");
-        num = sc.nextInt();
+        do {
+            find = new FindNumber(userInput.getSize(), userInput.getNum());
+            find.randomArray();
+
+            System.out.print("\nYou`re want to continue? y/n : ");
+            String s = sc.next();
+            if (s.equalsIgnoreCase("y")) {
+                isContinue = true;
+            } else {
+                System.out.println("Bye-bye");
+                return;
+            }
+        } while (isContinue);
     }
 }
+
 
 
