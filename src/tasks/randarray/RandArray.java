@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class RandArray {
 
     public static void main(String[] args) {
-
+        new Scan().scanInput();
     }
 }
 
@@ -52,6 +52,20 @@ class FindNumber{
     }
 }
 
+class Scan{
+
+    public void scanInput(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Input array size: ");
+        int size = sc.nextInt();
+        System.out.print("Input number: ");
+        int num = sc.nextInt();
+
+        UserInput userInput = new UserInput(size, num);
+        userInput.input();
+    }
+}
+
 class UserInput {
 
     private int size;
@@ -60,15 +74,10 @@ class UserInput {
     private UserInput userInput;
     private FindNumber find;
     private boolean isContinue;
-    Scanner sc;
 
     public UserInput(int size, int num){
-
-        sc = new Scanner(System.in);
-        System.out.print("Input array size: ");
-        size = sc.nextInt();
-        System.out.print("Input number: ");
-        num = sc.nextInt();
+        this.size = size;
+        this.num = num;
     }
 
     public int getSize() {
@@ -81,17 +90,22 @@ class UserInput {
 
     public void input() {
 
+        UserInput userInput = new UserInput(size, num);
+
         do {
             find = new FindNumber(userInput.getSize(), userInput.getNum());
             find.randomArray();
 
+            Scanner sc = new Scanner(System.in);
             System.out.print("\nYou`re want to continue? y/n : ");
             String s = sc.next();
             if (s.equalsIgnoreCase("y")) {
                 isContinue = true;
+                Scan scan = new Scan();
+                scan.scanInput();
             } else {
                 System.out.println("Bye-bye");
-                return;
+                System.exit(0);
             }
         } while (isContinue);
     }
