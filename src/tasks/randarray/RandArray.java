@@ -11,48 +11,9 @@ public class RandArray {
     }
 }
 
-class FindNumber{
-
-    private int size;
-    private int num;
-
-    public FindNumber(int size, int num) {
-        this.size = size;
-        this.num = num;
-    }
-
-    public void randomArray(){
-
-        int[] arr = new int[size];
-        Random random = new Random();
-
-        for(int i = 0; i < arr.length; i++){
-            arr[i] = random.nextInt(10);
-        }
-
-        System.out.println(Arrays.toString(arr));
-        findNumberInArray(arr);
-    }
-
-    private void findNumberInArray(int[] arr){
-
-        int j = 0;
-        boolean isFind = false;
-
-        for (int i : arr){
-            if(i == num){
-                System.out.print("Number " + num + " is find! Position: " + j);
-                isFind = true;
-                break;
-            }
-            j++;
-        }
-
-        if(!isFind) System.out.println("Number " + num + " is not found");
-    }
-}
-
 class Scan{
+
+    UserInput userInput;
 
     public void scanInput(){
         Scanner sc = new Scanner(System.in);
@@ -61,29 +22,30 @@ class Scan{
         System.out.print("Input number: ");
         int num = sc.nextInt();
 
-        UserInput userInput = new UserInput(size, num);
+        userInput = new UserInput(size, num);
         userInput.input();
     }
 }
 
 class UserInput {
 
-    private int size;
-    private int num;
-
-    private FindNumber find;
+    private final int size;
+    private static int num;
     private boolean isContinue;
 
     public UserInput(int size, int num){
         this.size = size;
-        this.num = num;
+        UserInput.num = num;
+    }
+
+    public static int getNum() {
+        return num;
     }
 
     public void input() {
 
         do {
-            find = new FindNumber(size, num);
-            find.randomArray();
+            randomArray();
 
             Scanner sc = new Scanner(System.in);
             System.out.print("\nYou`re want to continue? y/n : ");
@@ -99,7 +61,40 @@ class UserInput {
             }
         } while (isContinue);
     }
+
+
+    public void randomArray(){
+
+        int[] arr = new int[size];
+        Random random = new Random();
+
+        for(int i = 0; i < arr.length; i++){
+            arr[i] = random.nextInt(10);
+        }
+
+        System.out.println(Arrays.toString(arr));
+        new FindNumber().findNumberInArray(arr);
+    }
 }
 
+class FindNumber{
+
+    void findNumberInArray(int[] arr){
+
+        int j = 0;
+        boolean isFind = false;
+
+        for (int i : arr){
+            if(i == UserInput.getNum()){
+                System.out.print("Number " + UserInput.getNum() + " is find! Position: " + j);
+                isFind = true;
+                break;
+            }
+            j++;
+        }
+
+        if(!isFind) System.out.println("Number " + UserInput.getNum() + " is not found");
+    }
+}
 
 
