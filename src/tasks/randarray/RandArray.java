@@ -96,5 +96,3 @@ class FindNumber{
         if(!isFind) System.out.println("Number " + UserInput.getNum() + " is not found");
     }
 }
-
-
